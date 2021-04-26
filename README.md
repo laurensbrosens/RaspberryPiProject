@@ -10,7 +10,8 @@
 
 Communication MQTT:
 Controller en gameserver:
-- Authenticatie
+- Authenticatie:
+
  de controller stuurt een ? met een nummer erachter. de controller zelf kiest dit nummer
 wanneer de game server een vraagteken ziet met een nummer erachter zal die hierop reageren met ? en nummer en dan een id van 1 of 0
 de controller zal blijven kijken totdat hij een antwoordt krijgt met op zijn request en zal de id eruit pakken en dit zal hij dan altijd gebruiken tijdens het spel
