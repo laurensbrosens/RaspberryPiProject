@@ -30,3 +30,8 @@ L=a R=b B=c,d
 De a is de hoogte van de linkse speler
 de b is de hoogte  van de rechtste speler
 c en d zijn de X en Y coördinaten van de bal
+
+- Gameserver naar controllers (new ball):
+
+Als er is gescoord kan de gameserver een bericht sturen met new ball in
+voor elk bericht dat er zoals dit aan komt zal de middelste led 0.5 sec aan en 0.5 sec uit.
