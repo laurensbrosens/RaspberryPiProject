@@ -2,7 +2,9 @@
 import paho.mqtt.client as mqtt
 import RPi.GPIO as GPIO				#RPI.GPIO inkorten tot GPIO
 from time import sleep
-import random	
+import random
+from threading import Thread
+
 GPIO.setmode(GPIO.BCM)
 
 GPIO.setup(23,GPIO.IN,pull_up_down=GPIO.PUD_DOWN)#boven
@@ -17,7 +19,12 @@ GPIO.setup(lednummers[1],GPIO.OUT)#Groen
 GPIO.setup(lednummers[0],GPIO.OUT)
 
 
+
+def sentmsg(msg):
+	client.publish("ap/groep5", str(msg), qos=0)
+
 num = random.randint(00,100)
+
 class Control():
 	"""docstring for control"""
 	def __init__(controller, idnummer,leds):
@@ -38,7 +45,6 @@ class Control():
 		movement=""
 		if channel == 23:
 			movement = ""
-		
 		elif channel == 24:
 			if c.speed == 1:
 				c.speed = 2
@@ -52,8 +58,11 @@ class Control():
 
 		msg = "ID=" + str(c.id) + "UP="+str(movement)
 		#print(msg)
-		if c.id !="-1":
-			client.publish("ap/groep5", str(msg), qos=0)
+		if c.id !="-1" and channel != 24:
+
+			job = Thread(target = sentmsg,args=(msg,))
+			job.start()
+			#client.publish("ap/groep5", str(msg), qos=0)
 
 
 
@@ -84,7 +93,6 @@ def on_message(client, userdata, msg):  # The callback for when a PUBLISH messag
     		print("could not authenticate")
 
 
-
 client = mqtt.Client(clean_session=True) #make id for mqtt
 client.on_publish = on_publish
 client.on_connect = on_connect  # Define callback function for successful connection
@@ -112,6 +120,7 @@ def authenticate():
 
 
 try:
+	print("start authenticate")
 	authenticate()
 	
 	while True:
