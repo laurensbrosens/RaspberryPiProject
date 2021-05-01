@@ -1,4 +1,4 @@
-         #!/usr/bin/python3
+ #!/usr/bin/python3
 import paho.mqtt.client as mqtt
 import RPi.GPIO as GPIO				#RPI.GPIO inkorten tot GPIO
 from time import sleep
@@ -16,9 +16,8 @@ GPIO.setup(lednummers[2],GPIO.OUT)
 GPIO.setup(lednummers[1],GPIO.OUT)#Groen
 GPIO.setup(lednummers[0],GPIO.OUT)
 
+
 num = random.randint(00,100)
-
-
 class Control():
 	"""docstring for control"""
 	def __init__(controller, idnummer,leds):
@@ -30,7 +29,7 @@ class Control():
 		c.id = int(num)
 		if c.id == 0:
 			print("links led" + str(c.leds[c.id]))
-			
+
 		elif c.id ==1:
 			print("rechte led" + str(c.leds[c.id]))
 
@@ -93,8 +92,6 @@ client.on_message = on_message  # Define callback function for receipt of a mess
 client.connect("broker.mqttdashboard.com", 1883) #choose broker and port
 client.loop_start()
 
-
-
 def druk(channel):
 	c1.drukknop(channel)
 	
@@ -113,8 +110,10 @@ def authenticate():
 	msg="?" + str(num)
 	client.publish("ap/groep5",str(msg), qos=0)
 
+
 try:
 	authenticate()
+	
 	while True:
 		sleep(0.05)
 
