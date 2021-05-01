@@ -85,7 +85,7 @@ def on_message(client, userdata, msg):  # The callback for when a PUBLISH messag
 
 
 
-client = mqtt.Client("digi_mqtt_test") #make id for mqtt
+client = mqtt.Client(clean_session=True) #make id for mqtt
 client.on_publish = on_publish
 client.on_connect = on_connect  # Define callback function for successful connection
 client.on_message = on_message  # Define callback function for receipt of a message
