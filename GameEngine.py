@@ -71,17 +71,17 @@ while True:
    if gamestarted:
       b.update(position1,position2)
       if b.goal:
-         client.publish(topic, "$", qos=1)
+         client.publish(topic, "$", qos=2)
          b.goal = False
          if b.scorer == 0:
             score0 += 1
          else:
             score1 += 1
          b.reset()
-      client.publish(topic, "P1="+str(position1)+"P2="+str(position2)+"BX="+str(b.xpos)+"BY="+str(b.ypos)+"S1="+str(score0)+"S2="+str(score1), qos=1)
+      client.publish(topic, "P1="+str(position1)+"P2="+str(position2)+"BX="+str(b.xpos)+"BY="+str(b.ypos)+"S1="+str(score0)+"S2="+str(score1), qos=0)
       print("P1="+str(position1)+";P2="+str(position2)+";BX="+str(b.xpos)+";BY="+str(b.ypos)+";S1="+str(score0)+";S2="+str(score1))
       if score0 >= 10 or score1 >= 10:
-         client.loop_start()
+         client.loop_stop()
          break
 print("Game over")
 

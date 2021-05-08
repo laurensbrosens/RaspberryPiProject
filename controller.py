@@ -76,7 +76,7 @@ class Control():
 		if c.num <10:
 			c.num = "0" + str(c.num)
 		msg="?" + str(c.num)
-		client.publish("ap/groep5",str(msg), qos=0)	
+		client.publish("ap/groep5",str(msg), qos=2)	
 
 	def setid(c,num):
 		c.id = int(num)
