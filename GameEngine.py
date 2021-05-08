@@ -35,7 +35,7 @@ def on_message(client, userdata, msg):
             client.on_message = on_message2
             print("Authentication done")
 
-client = mqtt.Client(client_id="clientId-0Bn69AzoCg")
+client = mqtt.Client(clean_session=True)
 client.on_connect = on_connect
 client.on_subscribe = on_subscribe
 client.on_message = on_message
