@@ -49,6 +49,8 @@ def on_message2(client, userdata, msg):
       gamestarted = True
       b.reset()
       client.on_message = on_message3
+      global topic
+      topic = "ap/groep5/scherm"
 
 def on_message3(client, userdata, msg):
     global player1
