@@ -63,9 +63,8 @@ class ponggame():
         self.canvas.create_rectangle(248,0,252,400,dash=(5,1), outline="white")
         self.txt1.configure(text=self.score1)
         self.txt2.configure(text=self.score2)  
-    def gamecycle(self):
-        while True:
-            #print(data)
+    def gamecycle(self,data):
+            print(data)
             #clear screen
             self.tk.update()
             self.canvas.delete("all")
@@ -84,13 +83,8 @@ class ponggame():
             #wait
             sleep(0.2)
 
-def playgame(p):
-    p.gamecycle()
+
 pong = ponggame()
-job = Thread(target = playgame, args=(pong, ))
-job.start()
-
-
 def on_connect(client, userdata, flags, rc):
     client.subscribe("ap/groep5/scherm")
 
@@ -101,9 +95,9 @@ def on_message(client, userdata, msg):
     #global data
     #data = message#message.split(";")
     #pong.pad1=data[0][2:]
-    global data
     data = msg.payload.decode("utf-8")
     print(data[0][2:])
+    pong.gamecycle(data)
 
 client = mqtt.Client(clean_session=True) #make id for mqtt
 client.on_connect = on_connect  # Define callback function for successful connection
