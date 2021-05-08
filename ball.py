@@ -2,12 +2,12 @@ import time
 import random
 xmid = 250
 ymid = 200
-speed = 1
+speed = 2
 timestep = 1
 leftborder = 0
 rightborder = 500
-paddleheight = 20
-paddlewidth = 4 #afstand van paddle tot border
+paddleheight = 40
+paddlewidth = 20 #afstand van rechterkant paddle tot border
 top = 0
 bottom = 400
 class ball:
@@ -27,17 +27,21 @@ class ball:
         #deltat = time.time() - self.starttime
         self.xpos += self.dx#round(self.dx * deltat)
         self.ypos += self.dy#round(self.dy * deltat)
-        if self.xpos == leftborder + paddlewidth and self.ypos >= paddle0 and self.ypos <= paddle0 + paddleheight:
+        if self.xpos >= leftborder + paddlewidth and self.xpos <= leftborder + paddlewidth + 5 and self.ypos >= paddle0 and self.ypos <= paddle0 + paddleheight and self.dx <=0:
             print("Ball botst links")
             self.dx *= -1
-        if self.xpos == rightborder - paddlewidth and self.ypos >= paddle1 and self.ypos <= paddle1 + paddleheight:
+        if self.xpos <= rightborder - paddlewidth and self.xpos >= rightborder - paddlewidth - 5 and self.ypos >= paddle1 and self.ypos <= paddle1 + paddleheight and self.dx >=0:
+            print(str(self.xpos) + " <= " + str(rightborder - paddlewidth) + " and " + str(self.xpos) + " >= " + str(leftborder - paddlewidth - 5) + " and " + str(self.ypos) + " >= " + str(paddle1) + " and " + str(self.ypos) + " <= " + str(paddle1 + paddleheight) + " and "+str(self.dy)+" >= "+ str(0))
             print("Ball botst rechts")
+            #print("richting ="+self.dx)
             self.dx *= -1
+            print("richting ="+str(self.dx))
         if self.xpos < leftborder:
             print("Goal links")
             self.scorer = 0
             self.goal = True
         elif self.xpos > rightborder:
+            print(str(self.xpos) + " <= " + str(rightborder - paddlewidth) + " and " + str(self.xpos) + " >= " + str(leftborder - paddlewidth - 5) + " and " + str(self.ypos) + " >= " + str(paddle1) + " and " + str(self.ypos) + " <= " + str(paddle1 + paddleheight) + " and "+str(self.dy)+" >= "+ str(0))
             print("Goal rechts")
             self.scorer = 1
             self.goal = True

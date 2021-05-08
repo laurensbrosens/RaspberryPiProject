@@ -52,8 +52,8 @@ class ponggame():
         self.score1 = 0
         self.score2 = 0
 
-        self.txt1 = Label(self.tk, text="1" ,bg="black",fg="white", font=("Helvetica", 20))
-        self.txt2 = Label(self.tk,text="1" ,bg="black",fg="white", font=("Helvetica", 20))
+        self.txt1 = Label(self.tk, text="0" ,bg="black",fg="white", font=("Helvetica", 20))
+        self.txt2 = Label(self.tk,text="0" ,bg="black",fg="white", font=("Helvetica", 20))
         self.txt1.place(x=160,y=20)
         self.txt2.place(x=320,y=20)
         self.txt1.place()
@@ -69,12 +69,11 @@ class ponggame():
             self.tk.update()
             self.canvas.delete("all")
             #new positions
-            posx = random.randint(10,480)
-            posy = random.randint(10,380)
-            self.b.setcords(posx,posy)
-            randy = random.randint(10,380)
-            self.pad1.sety(randy)
-            self.pad2.sety(randy)
+            self.b.setcords(int(data[2][3:]),int(data[3][3:]))
+            self.pad1.sety(int(data[0][3:]))
+            self.pad2.sety(int(data[1][3:]))
+            self.score1 = int(data[4][3:])
+            self.score2 = int(data[5][3:])
             #draw
             self.drawfield()
             self.b.draw()
@@ -86,7 +85,7 @@ class ponggame():
 
 pong = ponggame()
 def on_connect(client, userdata, flags, rc):
-    client.subscribe("ap/groep5/scherm")
+    client.subscribe("ap/groep5/scherm", qos=0)
 
 
 def on_message(client, userdata, msg):
@@ -95,9 +94,11 @@ def on_message(client, userdata, msg):
     #global data
     #data = message#message.split(";")
     #pong.pad1=data[0][2:]
-    data = msg.payload.decode("utf-8")
-    print(data[0][2:])
-    pong.gamecycle(data)
+    global pong
+    message = msg.payload.decode("utf-8")
+    data = message.split(";")
+    if len(data) >= 6:
+        pong.gamecycle(data)
 
 client = mqtt.Client(clean_session=True) #make id for mqtt
 client.on_connect = on_connect  # Define callback function for successful connection
@@ -105,4 +106,4 @@ client.on_message = on_message  # Define callback function for receipt of a mess
 client.connect("broker.mqttdashboard.com", 1883) #choose broker and port
 client.loop_start()
 while True:
-    pass
+    pong.tk.mainloop()
