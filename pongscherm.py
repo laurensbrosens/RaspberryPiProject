@@ -63,9 +63,9 @@ class ponggame():
         self.canvas.create_rectangle(248,0,252,400,dash=(5,1), outline="white")
         self.txt1.configure(text=self.score1)
         self.txt2.configure(text=self.score2)  
-    def gamecycle(self,data):
+    def gamecycle(self):
         while True:
-            print(data)
+            #print(data)
             #clear screen
             self.tk.update()
             self.canvas.delete("all")
@@ -85,7 +85,7 @@ class ponggame():
             sleep(0.2)
 
 def playgame(p):
-    p.gamecycle(data)
+    p.gamecycle()
 pong = ponggame()
 job = Thread(target = playgame, args=(pong, ))
 job.start()
