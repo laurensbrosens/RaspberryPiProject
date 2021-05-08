@@ -84,11 +84,10 @@ class ponggame():
             #wait
             sleep(0.2)
 
-def playgame(data):
-    pong = ponggame()
-    pong.gamecycle(data)
-data = "leeg"
-job = Thread(target = playgame, args=(data, ))
+def playgame(p):
+    p.gamecycle(data)
+pong = ponggame()
+job = Thread(target = playgame, args=(pong, ))
 job.start()
 
 
