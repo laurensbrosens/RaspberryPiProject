@@ -82,14 +82,19 @@ class Control():
 		c.id = int(num)
 		if c.id == 0:
 			print("links led" + str(c.leds[c.id]))
+			GPIO.output(c.leds[0],1)
 
 		elif c.id ==1:
 			print("rechte led" + str(c.leds[c.id]))
+			GPIO.output(c.leds[2],1)
+	def newball(c):
 	def newball(c):
 		for x in range(3):
 			print("led aan")
+			GPIO.output(c.leds[1],1)
 			sleep(0.5)
 			print("led uit")
+			GPIO.output(c.leds[1],0)
 			sleep(0.5)
 
 	def sentmsg(c,msg):
