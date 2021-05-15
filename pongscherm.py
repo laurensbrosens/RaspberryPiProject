@@ -58,14 +58,13 @@ class ponggame():
         self.txt2.place(x=320,y=20)
         self.txt1.place()
         self.txt2.place()
-        
         self.button = Button(text="START",command=self.sentstart)
         self.button.pack()
 
-        
     def sentstart(self):
+        client.publish("ap/groep5", str("START"), qos=0)
         print("start new thread that sents start")
-
+                         
     def drawfield(self):
         self.canvas.create_rectangle(248,0,252,400,dash=(5,1), outline="white")
         self.txt1.configure(text=self.score1)
@@ -91,6 +90,10 @@ class ponggame():
 
 
 pong = ponggame()
+
+def on_publish(client, userdata, mid):
+    print("message: "+str(mid))
+
 def on_connect(client, userdata, flags, rc):
     client.subscribe("ap/groep5/scherm", qos=0)
 
@@ -108,6 +111,7 @@ def on_message(client, userdata, msg):
         pong.gamecycle(data)
 
 client = mqtt.Client(clean_session=True) #make id for mqtt
+client.on_publish = on_publish
 client.on_connect = on_connect  # Define callback function for successful connection
 client.on_message = on_message  # Define callback function for receipt of a message
 client.connect("broker.mqttdashboard.com", 1883) #choose broker and port
