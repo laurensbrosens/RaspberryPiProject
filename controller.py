@@ -12,7 +12,7 @@ GPIO.setup(24,GPIO.IN,pull_up_down=GPIO.PUD_DOWN)#speed
 GPIO.setup(25,GPIO.IN,pull_up_down=GPIO.PUD_DOWN)#onder
 
 #leds 
-lednummers = [13,5,6]
+lednummers = [13,5,6] #5 rood, 6 geel en 13 groen
 
 GPIO.setup(lednummers[2],GPIO.OUT)
 GPIO.setup(lednummers[1],GPIO.OUT)#Groen
@@ -106,9 +106,9 @@ class Control():
 			movement = ""
 		elif channel == 24:
 			if c.speed == 1:
-				c.speed = 2
+				c.speed = 20
 			else:
-				c.speed = 1
+				c.speed = 10
 		elif channel == 25:
 			movement = "-"
 
