@@ -22,7 +22,6 @@ GPIO.setup(lednummers[0],GPIO.OUT)
 
 
 
-
 def on_publish(client, userdata, mid):
     print("message: "+str(mid))
 
@@ -86,15 +85,14 @@ class Control():
 
 		elif c.id ==1:
 			print("rechte led" + str(c.leds[c.id]))
-			GPIO.output(c.leds[2],1)
-	def newball(c):
+			GPIO.output(c.leds[1],1)
 	def newball(c):
 		for x in range(3):
 			print("led aan")
-			GPIO.output(c.leds[1],1)
+			GPIO.output(c.leds[2],1)
 			sleep(0.5)
 			print("led uit")
-			GPIO.output(c.leds[1],0)
+			GPIO.output(c.leds[2],0)
 			sleep(0.5)
 
 	def sentmsg(c,msg):
