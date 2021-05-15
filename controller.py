@@ -145,4 +145,6 @@ except KeyboardInterrupt:
 	GPIO.remove_event_detect(23)
 	GPIO.remove_event_detect(24)
 	GPIO.remove_event_detect(25)
+	for x in lednummers:
+		GPIO.output(x,0)
 	GPIO.cleanup()
