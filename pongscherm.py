@@ -58,6 +58,13 @@ class ponggame():
         self.txt2.place(x=320,y=20)
         self.txt1.place()
         self.txt2.place()
+        
+        self.button = Button(text="START",command=self.sentstart)
+        self.button.pack()
+
+        
+    def sentstart(self):
+        print("start new thread that sents start")
 
     def drawfield(self):
         self.canvas.create_rectangle(248,0,252,400,dash=(5,1), outline="white")
